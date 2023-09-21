@@ -11,7 +11,4 @@
 (e) Foi possível mover um valor de 4 digitos hexadecimais para DPTR, pois DPTR é composto de 2 outros registradores de 8 bits, DPH e DPL, portanto 2 digitos foram colocados em DPH e 2 outros em DPL. Dito isso, o maior valor que pode ser passado para DPTR é FFFFh.
 
 ## Exercício 2
-
-## Exercício 3
-
-## Exercício 4
+Ao realizar o teste descrito, o bit menos significativo de PSW é 1 quando ACC é 4 e 0 quando ACC é 3, pois esse bit contém a informação da "Parity Flag", isto é, quando o acumulador contém um número par, essa flag é 1, quando contém um ímpar, a flag é 0. 
