@@ -1,69 +1,48 @@
 ORG 0000h
 CLR   P3.4       ; seleciona o display 0
 CLR   P3.3
-ACALL rst        ; comeca o programa no numero 0
+; 1 000 ms = 9us + 4ms + 2ms*7Fh
+MOV 7Fh, #498   ; referencia temporal para o delay
 
 main:
-; display 1 - 4 us
-	SETB  P1.0
-	SETB  P1.3
-	SETB  P1.4
-	SETB  P1.5
+	MOV P1, #0C0h ; display 0 - 2 us
+	ACALL delay   ; wait      - 2ms*7Fh + 4ms + 5us
 
-; display 2 - 5 us
-	CLR  P1.0
-	SETB P1.2
-	CLR  P1.3
-	CLR  P1.4
-	CLR  P1.6
+	MOV P1, #0F9h ; display 1 - 2 us
+	ACALL delay   ; wait      - 2ms*7Fh + 4ms + 5us
 
-; display 3 - 2 us
-	CLR  P1.2
-	SETB P1.4
+	MOV P1, #0A4h ; display 2 - 2 us
+	ACALL delay   ; wait      - 2ms*7Fh + 4ms + 5us
 
-; display 4 - 3 us
-	SETB P1.0
-	SETB P1.3
-	CLR  P1.5
+	MOV P1, #0B0h ; display 3 - 2 us
+	ACALL delay   ; wait      - 2ms*7Fh + 4ms + 5us
 
-; display 5 - 3 us
-	CLR  P1.0
-	SETB P1.1
-	CLR  P1.3
+	MOV P1, #99h  ; display 4 - 2 us
+	ACALL delay   ; wait      - 2ms*7Fh + 4ms + 5us
 
-; display 6 - 1 us
-	CLR  P1.4	
+	MOV P1, #92h  ; display 5 - 2 us
+	ACALL delay   ; wait      - 2ms*7Fh + 4ms + 5us
 
-; display 7 - 5 us
-	CLR  P1.1
-	SETB P1.3
-	SETB P1.4
-	SETB P1.5
-	SETB P1.6
+	MOV P1, #82h  ; display 6 - 2 us
+	ACALL delay   ; wait      - 2ms*7Fh + 4ms + 5us
 
-; display 8 - 4 us
-	CLR  P1.3
-	CLR  P1.4
-	CLR  P1.5
-	CLR  P1.6
+	MOV P1, #0F8h ; display 7 - 2 us
+	ACALL delay   ; wait      - 2ms*7Fh + 4ms + 5us
 
-; display 9 - 1 us
-	SETB P1.4
-
-; display 0 - 2 us
-	CLR  P1.4
-	SETB P1.6
+	MOV P1, #80h  ; display 8 - 2 us
+	ACALL delay   ; wait      - 2ms*7Fh + 4ms + 5us
+	
+	MOV P1, #90h  ; display 9 - 2 us
+	ACALL delay   ; wait      - 2ms*7Fh + 4ms + 5us
 
 JMP main
 
-; inicia o display com 0
-rst:              ; 8us execucao + 4us chamada
-	CLR   P1.0
-	CLR   P1.1
-	CLR   P1.2
-	CLR   P1.3
-	CLR   P1.4
-	CLR   P1.5
-	SETB  P1.6
-	SETB  P1.7
-RET
+; delay em us pelo valor no endereco 7Fh
+delay:                       ; 2us + 1us + 2ms + 2ms*7Fh + 2ms + 2us = 2ms*7Fh + 4ms + 5us
+	MOV R0, #1000            ; 1us
+	_delay:                  ; 1000x
+		MOV R1, 7Fh          ; 2us * 1000 = 2ms
+		__delay:             ; R1x
+			DJNZ R1, __delay ; 2us * 1000 * R1 = 2ms * R1
+		DJNZ R0, _delay      ; 2us * 1000 = 2ms
+RET                          ; 2us
