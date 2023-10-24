@@ -44,7 +44,7 @@ count:
 	MOV P1, #90h  				; display 9 - 2 us
 	ACALL delay   				; wait      
 
-JMP selectmode   				; Checks for option selected
+	JMP selectmode   			; Checks for option selected
 
 ; Turns-off the display
 turnoff:
@@ -76,8 +76,8 @@ delay:
 		CLR TR0 	    		; Stop Timer 0 after it overflows
 		CLR TF0         		; Clear TF0 for the next operation
 
-	DJNZ R7, check_switches    ; Decrement R7. If it's not 0, jump to check_switches, does it until R7 = 0
-RET                 			; Returns from subroutine call
+	DJNZ R7, check_switches   	; Decrement R7. If it's not 0, jump to check_switches, does it until R7 = 0
+	RET                 	   	; Returns from subroutine call
 
 ; Checks which switch is pressed and updates the delay option accordingly 
 check_switches:
