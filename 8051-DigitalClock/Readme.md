@@ -170,6 +170,6 @@ update_quarterspeed:
 
 Um diagrama especificando o funcionamento e interação das subrotinas do programa pode ser visto abaixo:
 
-![Diagrama de subrotinas](https://github.com/rafaelfrgc/Sky130-OpenLANE-DesignWorkshop/blob/main/Day1/Images/SynthesisLog.png)
+![Diagrama de subrotinas](https://github.com/MatheusVBellini/MicrocontrollerProgramming/blob/main/8051-DigitalClock/diagrama.png)
 
 Com isso, compreende-se o funcionamento do relógio digital conforme as especificações do trabalho. Vale notar que há imprecisões de 100-300us aproximadamente em cada uma das opções, devido ao tempo que cada operação leva para ser executada. Porém, isso não afeta o funcionamento do relógio dada a necessidade de precisão do projeto
